@@ -20,50 +20,74 @@ Output: [-1,-1]
 """
 
 # my solution
-def findIndex(nums, target):
-    l, r = 0, len(nums) - 1
+# def findIndex(nums, target):
+#     l, r = 0, len(nums) - 1
+#
+#     while l <= r:
+#         m = (l + r) // 2
+#         if nums[m] == target:
+#             return m
+#         elif target < nums[m]:
+#             r = m - 1
+#         else:
+#             l = m + 1
+#
+#     return -1
+#
+#
+# def searchRange(nums, target):
+#     if len(nums) == 0 or target < nums[0] or target > nums[len(nums) - 1]:
+#         return [-1, -1]
+#
+#     index = findIndex(nums, target)
+#     if index == -1:
+#         return [-1, -1]
+#     else:
+#         l, r = 0, 0
+#         lIndex = index
+#         while True:
+#             if nums[lIndex - 1] != target or lIndex == 0:
+#                 l = lIndex
+#                 break
+#             else:
+#                 lIndex -= 1
+#
+#         while True:
+#             if index == len(nums) - 1 or nums[index + 1] != target:
+#                 r = index
+#                 break
+#             else:
+#                 index += 1
+#
+#         return [l, r]
 
+
+# leftBias=[True/False], if false, res is rightBiased
+def binSearch(nums, target, leftBias):
+    l, r = 0, len(nums) - 1
+    i = -1
     while l <= r:
-        m = (l + r) // 2
-        if nums[m] == target:
-            return m
+        m = (l+r) // 2
+        if target > nums[m]:
+            l = m + 1
         elif target < nums[m]:
             r = m - 1
         else:
-            l = m + 1
-
-    return -1
+            i = m
+            if leftBias:
+                r = m - 1
+            else:
+                l = m + 1
+    return i
 
 
 def searchRange(nums, target):
-    if len(nums) == 0 or target < nums[0] or target > nums[len(nums) - 1]:
-        return [-1, -1]
-
-    index = findIndex(nums, target)
-    if index == -1:
-        return [-1, -1]
-    else:
-        l, r = 0, 0
-        lIndex = index
-        while True:
-            if nums[lIndex - 1] != target or lIndex == 0:
-                l = lIndex
-                break
-            else:
-                lIndex -= 1
-
-        while True:
-            if index == len(nums) - 1 or nums[index + 1] != target:
-                r = index
-                break
-            else:
-                index += 1
-
-        return [l, r]
+    left = binSearch(nums, target, True)
+    right = binSearch(nums, target, False)
+    return [left, right]
 
 
-
-nums = [5,7,7,8,8,10]
+nums = [5,7,7,8,8,8,8,8,8,8,8,10]
 target = 8
 print(searchRange(nums,target))
 
