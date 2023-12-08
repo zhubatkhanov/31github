@@ -20,24 +20,23 @@ def isLongPressedName(name, typed):
     first, second = 0, 0
     if name[first] != typed[first]:
         return False
+
     while first < len(name):
         if name[first] == typed[second]:
             first += 1
-            second += 1
         else:
             if first != 0:
                 if typed[second] != name[first - 1]:
                     return False
-            second += 1
+        second += 1
 
         if second == len(typed) and first != len(name):
             return False
 
-    if second < len(typed):
-        while second < len(typed):
-            if typed[second] != name[first - 1]:
-                return False
-            second += 1
+    while second < len(typed):
+        if typed[second] != name[first - 1]:
+            return False
+        second += 1
 
     return True
 
