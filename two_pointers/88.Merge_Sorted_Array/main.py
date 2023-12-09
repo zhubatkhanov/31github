@@ -19,30 +19,25 @@ The result of the merge is [1,2,2,3,5,6] with the underlined elements coming fro
 
 # my solution
 def merge(nums1, m, nums2, n):
-    if m == 0:
-        nums1 = nums2
-    elif n != 0:
-        first = m - 1
-        second = n - 1
-        index = m + n - 1
-        while index >= 0 and first >= 0 and second >= 0:
-            if nums1[first] < nums2[second]:
-                nums1[index] = nums2[second]
-                second -= 1
-            else:
-                nums1[index] = nums1[first]
-                first -= 1
-            index -= 1
+    index = m + n - 1
+    while m > 0 and n > 0:
+        if nums1[m-1] < nums2[n-1]:
+            nums1[index] = nums2[n-1]
+            n -= 1
+        else:
+            nums1[index] = nums1[m-1]
+            m -= 1
+        index -= 1
 
-        if index != -1:
-            while index >= 0:
-                if first < 0:
-                    nums1[index] = nums2[second]
-                    second -= 1
-                else:
-                    nums1[index] = nums1[first]
-                    first -= 1
-                index -= 1
+    if index != -1:
+        while index >= 0:
+            if m-1 < 0:
+                nums1[index] = nums2[n-1]
+                n -= 1
+            else:
+                nums1[index] = nums1[m-1]
+                m -= 1
+            index -= 1
 
     print(nums1)
 
