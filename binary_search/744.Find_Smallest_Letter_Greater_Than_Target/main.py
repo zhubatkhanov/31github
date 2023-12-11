@@ -30,20 +30,20 @@ Explanation: There are no characters in letters that is lexicographically greate
 
 """"   leetcode solution 
 def nextGreatestLetter(letters, target):
-    if target < letters[0] or target > letters[len(letters) - 1]:
-        return letters[0]
 
     left, right = 0, len(letters) - 1
+    
+    if target < letters[0] or target >= letters[right]:
+        return letters[0]
 
-    while left < right:
+    while left <= right:
 
         mid = (left + right)//2
 
-        if target >= letters[mid]:
-            left = mid + 1
-
         if target < letters[mid]:
             right = mid - 1
+        else:
+            left = mid + 1
 
     return letters[left]
 
