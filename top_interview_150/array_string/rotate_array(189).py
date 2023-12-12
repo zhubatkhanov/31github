@@ -46,27 +46,43 @@ rotate 3 steps to the right: [5,6,7,1,2,3,4]
 
 
 ### 3ое решение, посмотрел готовое решение
+# def rotate(nums, k):
+#     k = k % len(nums)
+#
+#     if k == len(nums) or k == 0:
+#         return nums
+#
+#     reverse(nums, 0, len(nums)-1)
+#     reverse(nums, 0, k-1)
+#     reverse(nums, k, len(nums)-1)
+#     return nums
+#
+# def reverse(nums, start, end):
+#     while start < end:
+#         temp = nums[start]
+#         nums[start] = nums[end]
+#         nums[end] = temp
+#         start += 1
+#         end -= 1
+#
+#     return nums
+
 def rotate(nums, k):
     k = k % len(nums)
 
     if k == len(nums) or k == 0:
         return nums
 
-    reverse(nums, 0, len(nums)-1)
-    reverse(nums, 0, k-1)
-    reverse(nums, k, len(nums)-1)
-    return nums
+    result = [0] * len(nums)
+
+    for i in range(len(nums)):
+        index = (i+k) % (len(nums))
+        result[index] = nums[i]
+
+    return result
 
 
-def reverse(nums, start, end):
-    while start < end:
-        temp = nums[start]
-        nums[start] = nums[end]
-        nums[end] = temp
-        start += 1
-        end -= 1
 
-    return nums
 
 
 nums = [1,2,3,4,5,6,7]
