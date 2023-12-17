@@ -35,14 +35,9 @@ def romanToInt(s):
     }
 
     res = 0
-    check = False
     for i in range(len(s)):
-        if check:
-            check = False
-            continue
-        if dict[s[i]] < dict[s[i+1]]:
-            res += dict[s[i+1]] - dict[s[i]]
-            check = True
+        if i != len(s)-1 and dict[s[i]] < dict[s[i+1]]:
+            res -= dict[s[i]]
         else:
             res += dict[s[i]]
 
